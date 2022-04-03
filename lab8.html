@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        tournamentResults {
+            margin: 0 auto;
+        }
+    </style>
+    <meta charset="utf-8">
+    <title>lab8</title>
+    <script >
+        //Создадим массив для стран участвующих в турнире locked shields 2013
+let tournamentData = [
+    {
+        //Страна #1 и ее достижения на турнире:
+        name:'Austria',
+        injectingmaliciouscode: 3,
+        gainingadministrativeaccess: 5,
+denialofserviceorganization: 2,
+    totalpoints: 0
+        },
+{
+    //Страна #2 и ее достижения на турнире:
+    name:'Germany',
+        injectingmaliciouscode: 7,
+    gainingadministrativeaccess: 7,
+        denialofserviceorganization: 8,
+            totalpoints: 0
+                },
+{
+    //Страна #3 и ее достижения на турнире:
+    name:'Italy',
+        injectingmaliciouscode: 2,
+    gainingadministrativeaccess: 6,
+        denialofserviceorganization: 2,
+            totalpoints: 0
+                },
+{
+    //Страна #4 и ее достижения на турнире:
+    name:'Canada',
+        injectingmaliciouscode: 6,
+    gainingadministrativeaccess: 5,
+        denialofserviceorganization: 4,
+            totalpoints: 0
+                },
+
+];
+//Теперь нам нужно посчитать totalpoints для каждой страны, используем:
+tournamentData = tournamentData.map((countries) => {
+    return {
+        ...countries,
+        totalpoints: (countries.injectingmaliciouscode * 7) + (countries.gainingadministrativeaccess * 6) + (countries.denialofserviceorganization * 5)
+    }
+});
+//Теперь сделаем топ лист от победителей к проигравшим:
+function compareCountries (a, b){
+    if (a.totalpoints < b.totalpoints){
+        return 1;
+    }
+    if (a.totalpoints > b.totalpoints){
+        return -1;
+    }
+    return 0;
+}
+
+
+
+
+
+function func() {
+    console.table(tournamentData);
+
+    // window.onload = function() {
+
+        var tournamentResults = document.getElementById('tournamentResults');
+
+        console.log(tournamentResults);
+
+        let tableHeader = '<tr><th>Страна</th><th width="100">Побед по внедрению вредоносного кода</th><th width="100">Победа по получению административного доступа</th><th width="100">Побед по организации отказа в обслуживании</th><th width="100">Суммарное количество очков</th></tr>';
+
+        tournamentResults.innerHTML = tableHeader;
+
+        tournamentData.forEach((countryData) => {
+            tournamentResults.innerHTML += '<tr><td>' + countryData.name + '</td><td>' + countryData.injectingmaliciouscode + '</td><td>' + countryData.gainingadministrativeaccess + '</td><td>' + countryData.denialofserviceorganization + '</td><td>' + countryData.totalpoints + '</td></tr>';
+        });
+    // };
+}
+
+    </script>
+</head>
+<body>
+<br><br><br><br><br><br><br><br>
+<button onclick="func()">Открыть результаты турнира</button>
+<br><br>
+<table id="tournamentResults" cellpadding="1" cellspacing="1" border="1"></table>
+</body>
+</html>
